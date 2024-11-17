@@ -2,7 +2,6 @@ package com.villageinsurgency.game.services;
 
 import com.villageinsurgency.game.model.Game;
 import com.villageinsurgency.game.model.TownCentre;
-import com.villageinsurgency.game.model.constants.GameConstants;
 import com.villageinsurgency.game.model.person.Person;
 import com.villageinsurgency.game.parsers.GameParser;
 import com.villageinsurgency.game.persistence.JSonifier;
@@ -28,7 +27,7 @@ public class GameService {
 
     public ResponseEntity<String> createGame(String p1) {
         // Generate the JSON data using function X
-        Game game = new Game(GameConstants.LEVEL1);
+        Game game = new Game();
         String json = String.valueOf(JSonifier.gameToJson(game));
 
         // Construct the SQL INSERT statement
@@ -143,10 +142,10 @@ public class GameService {
         }
     }
 
-    public void makeNewGame(String s) {
-        game = new Game(s);
-        update();
-    }
+//    public void makeNewGame(String s) {
+//        game = new Game();
+//        update();
+//    }
 
     public ResponseEntity<String> createUnit(int gameKey, String type, String user) {
         ResponseEntity<String> ret = null;
