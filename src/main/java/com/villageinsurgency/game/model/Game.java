@@ -24,21 +24,8 @@ public class Game {
     // REQUIRES: valid difficulty
     // MODIFIES: this
     // EFFECTS: makes game depending on difficulty
-    public Game(String difficulty) {
-        switch (difficulty) {
-            case GameConstants.LEVEL1:
-                setupGame(GameConstants.EASY_START_POP, GameConstants.EASY_START_RESOURCES, GameConstants.EASY_START_RESOURCES);
-                break;
-            case GameConstants.LEVEL2:
-                setupGame(GameConstants.MEDIUM_START_POP, GameConstants.MEDIUM_START_RESOURCES, GameConstants.MEDIUM_START_RESOURCES);
-                break;
-            case GameConstants.LEVEL3:
-                setupGame(GameConstants.HARD_START_POP, GameConstants.HARD_START_RESOURCES, GameConstants.HARD_START_RESOURCES);
-                break;
-            default:
-                System.out.println("Invalid");
-                break;
-        }
+    public Game() {
+        setupGame(GameConstants.EASY_START_POP, GameConstants.EASY_START_RESOURCES, GameConstants.EASY_START_RESOURCES);
     }
 
     public Game(JSONObject j) {
