@@ -1,6 +1,7 @@
 # Maven
 target/
-.mvn/
+.mvn/*
+!.mvn/wrapper/
 !.mvn/wrapper/maven-wrapper.jar
 !.mvn/wrapper/maven-wrapper.properties
 
@@ -13,9 +14,6 @@ target/
 *.zip
 *.tar.gz
 *.rar
-
-# Sensitive Files
-/src/main/resources/village-insurgency-firebase-adminsdk-key.json
 
 # IDEs (General)
 *.iml
@@ -40,3 +38,6 @@ hs_err_pid*
 .LSOverride
 Icon
 ._*
+
+# Other
+/src/main/resources/village-insurgency-firebase-adminsdk-key.json
