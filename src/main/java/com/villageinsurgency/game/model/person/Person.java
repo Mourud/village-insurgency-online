@@ -151,6 +151,12 @@ public abstract class Person extends GameObject {
         return id == person.id
                 && myTown.equals(person.myTown);
     }
+    public int add(int a, int b) {
+        return a + b;
+    }
+    public String add(String a, String b) {
+        return a + b;
+    }
 
     @Override
     public int hashCode() {

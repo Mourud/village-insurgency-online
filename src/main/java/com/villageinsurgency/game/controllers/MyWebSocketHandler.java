@@ -23,15 +23,16 @@ public class MyWebSocketHandler extends TextWebSocketHandler {
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         System.out.println("Received: " + message.getPayload());
 
-        // Echo back the message
-        // Broadcast the message to all connected clients
-//        for (WebSocketSession activeSession : sessions) {
-//            System.out.println("Session: " + activeSession.getId());
-//            if (activeSession.isOpen()) {
-//                activeSession.sendMessage(new TextMessage("Broadcast: " + message.getPayload()));
-//            }
-//        }
-//        session.sendMessage(new TextMessage("Server: " + message.getPayload()));
+//         Echo back the message
+//         Broadcast the message to all connected clients
+        System.out.println("Sessions: " + sessions.size());
+        for (WebSocketSession activeSession : sessions) {
+            System.out.println("Session: " + activeSession.getId());
+            if (activeSession.isOpen()) {
+                activeSession.sendMessage(new TextMessage("Broadcast: " + message.getPayload()));
+            }
+        }
+        session.sendMessage(new TextMessage("Server: " + message.getPayload()));
     }
 
     @Override
