@@ -1,44 +1,16 @@
 
 'use client';
 import { Button } from "@/components/ui/button";
-import { getAuth, signInAnonymously, GoogleAuthProvider, signInWithPopup, updateProfile } from 'firebase/auth';
 
-import { app } from "@/app/firebase";
 import RandomizedNameInput from "./randomized-name-input";
 import { useState } from "react";
 
 export function LandingPage() {
   const [displayName, setDisplayName] = useState('');
 
-  const auth = getAuth(app); // Initialize Firebase Authentication
-
-  const handleAnonymousSignIn = async () => {
-    try {
-      await signInAnonymously(auth);
-      if (auth.currentUser) {
-        await updateProfile(auth.currentUser, { displayName });
-        // Handle the updated user profile here, e.g., redirect or display a success message
-      }
-    } catch (error) {
-      console.error("Error signing in anonymously:", error);
-    }
-  };
-
-  const handleGoogleSignIn = async () => {
-    const provider = new GoogleAuthProvider();
-    try {
-      await signInWithPopup(auth, provider);
-      alert("Signed in with Google");
-    } catch (error) {
-      console.error("Error signing in with Google:", error);
-    }
-  };
-
   function help() {
-    if (auth.currentUser) {
-      const googleDisplayName = auth.currentUser.displayName;
-      console.log("Google Display Name:", googleDisplayName);
-    }
+
+      console.log("Google Display Name:");
   }
 
   return (
@@ -54,7 +26,7 @@ export function LandingPage() {
       </div>
       <div className="w-full max-w-sm space-y-4">
         <RandomizedNameInput onNameChange={setDisplayName} />
-        <Button className="w-full" onClick={handleAnonymousSignIn}>
+        <Button className="w-full" onClick={() => console.log("Join Anonymously")}>
           Join Anonymously
         </Button>
       </div>
@@ -66,7 +38,7 @@ export function LandingPage() {
           </p>
         </div>
         <div className="flex space-x-4">
-          <Button className="px-0 flex-1" onClick={handleGoogleSignIn}>
+          <Button className="px-0 flex-1" onClick={() => console.log("Join Anonymously")}>
             <span className="sr-only">Sign up with Google</span>
             <ChromeIcon className="w-6 h-6" />
           </Button>
