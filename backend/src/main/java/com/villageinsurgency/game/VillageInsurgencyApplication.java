@@ -7,8 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class VillageInsurgencyApplication {
 
 	public static void main(String[] args) {
-
-
         SpringApplication.run(VillageInsurgencyApplication.class, args);
 	}
 
