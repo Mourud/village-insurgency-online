@@ -11,14 +11,18 @@ import java.util.Objects;
 public class Game {
 
     //fields
+    // TODO: Static for gather function in TC, remove TC and gather logic coupling
     public static ResourceHotSpot goldMine;
     public static ResourceHotSpot farm;
+    // TODO: Add UUID for game tracking
     private TownCentre playerTown;
     private TownCentre enemyTown;
     public boolean isPlayerTurn;
     //    private TownCentre turnTown;
     private int turnsPlayed;
     private String key;
+    private String playerOne;
+    private String playerTwo;
 
 
     // REQUIRES: valid difficulty
@@ -26,6 +30,16 @@ public class Game {
     // EFFECTS: makes game depending on difficulty
     public Game() {
         setupGame(GameConstants.EASY_START_POP, GameConstants.EASY_START_RESOURCES, GameConstants.EASY_START_RESOURCES);
+    }
+
+    public Game(String playerOne) {
+        this.playerOne = playerOne;
+        this.isPlayerTurn = true;
+        this.turnsPlayed = 0;
+        this.playerTown = new TownCentre(GameConstants.EASY_START_POP, GameConstants.EASY_START_RESOURCES, GameConstants.EASY_START_RESOURCES, true);
+        this.enemyTown = new TownCentre(GameConstants.EASY_START_POP, GameConstants.EASY_START_RESOURCES, GameConstants.EASY_START_RESOURCES, false);
+        goldMine = new GoldMine();
+        farm = new Farm();
     }
 
     public Game(JSONObject j) {
