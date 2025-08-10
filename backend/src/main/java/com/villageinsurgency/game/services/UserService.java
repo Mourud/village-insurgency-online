@@ -1,24 +1,36 @@
 package com.villageinsurgency.game.services;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
+
+import com.villageinsurgency.game.dto.LoginRequest;
+import com.villageinsurgency.game.dto.LoginResponse;
+import com.villageinsurgency.game.dto.RegisterRequest;
+import com.villageinsurgency.game.dto.RegisterResponse;
+import com.villageinsurgency.game.model.User;
+import com.villageinsurgency.game.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserService {
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-    // TODO: Handle uniqueness issue
-    public boolean createUser(String username, String email) {
-        String sql = "INSERT INTO Users (username, email) VALUES (?, ?)";
-        int rowsAffected = 0;
-        rowsAffected = jdbcTemplate.update(sql, username, email);
-        System.out.println(rowsAffected);
-        return  rowsAffected > 0;
+    private final UserRepository users;
+
+    public UserService(UserRepository users) { this.users = users; }
+
+    @Transactional
+    public RegisterResponse register(RegisterRequest req) {
+        User saved = users.save(new User(req.email(), req.password()));
+        return new RegisterResponse(saved.getUserID(), saved.getEmail());
     }
 
-//    public boolean getUser(String username) {
-//        String sql = "SELECT * FROM Users WHERE username = ?";
-//        return jdbcTemplate.queryForObject(sql, new Object[]{username}, (rs, rowNum) -> rs.getString("username")) != null;
-//    }
+    @Transactional(readOnly = true)
+    public LoginResponse login(LoginRequest req){
+        var user = users.findByEmail(req.email())
+                .orElseThrow( () -> new IllegalArgumentException("Invalid email or password"));
+        if (!user.getPassword().equals(req.password())){
+            throw new IllegalArgumentException("Invalid email or password");
+        }
+        return new LoginResponse(user.getUserID(), user.getEmail());
+
+
+    }
 }
